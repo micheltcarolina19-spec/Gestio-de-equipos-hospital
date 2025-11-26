@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Inicio | Inventario & Mantenimientos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/img/iconosanrafa.png" /> <!-- icono -->
+
+  <style>
+    body {
+      background-color: #E8F4FF !important;
+      /* Celeste claro */
+    }
+
+    .card {
+      background-color: #FFFFFF;
+      border: 1px solid #CFE6FF;
+    }
+
+    /* color nav */
+    .navbar {
+      background-color: #ecf6ff !important;
+    }
+
+    .navbar .nav-link {
+      color: #0A3D62 !important;
+    }
+
+    .navbar .nav-link:hover {
+      color: #562585 !important;
+    }
+
+    footer {
+      background-color: #D8ECFF !important;
+    }
+
+    main {
+      background-color: #ffffff !important;
+    }
+
+    /* Botones en color #562585 */
+    .btn-entrar {
+      background-color: #562585 !important;
+      border-color: #562585 !important;
+      color: #fff !important;
+    }
+
+    /* Hover suave */
+    .card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      /* Aumenta un poco */
+      border: 2px solid #a3eef3 !important;
+      box-shadow: 30px 10px 20px rgb(59, 145, 148);
+    }
+
+    .btn-celeste {
+      background-color: #5dc2bd !important;
+      border-color: #5dc2bd !important;
+      color: #fff !important;
+    }
+
+    body.dark-mode {
+      background-color: #1e1e1e !important;
+      color: #e6e6e6 !important;
+    }
+
+    main.dark-mode-main {
+      background-color: #2a2a2a !important;
+      color: #e6e6e6 !important;
+    }
+
+    /* letras */
+    .dark-mode .card {
+      background-color: #2a2a2a !important;
+      color: #011d29 !important;
+      border: 1px solid #444 !important;
+    }
+
+    .dark-mode .navbar,
+    xxxxxx .dark-mode footer {
+      background-color: #2a2a2a !important;
+      color: #e6e6e6 !important;
+    }
+
+    .dark-mode a,
+    .dark-mode .nav-link {
+      color: #ffffff !important;
+    }
+
+    .dark-mode footer {
+      background-color: #2a2a2a !important;
+      color: #e6e6e6 !important;
+    }
+  </style>
+
+</head>
+
+<body class="bg-white d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR SUPERIOR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container">
+
+      <!-- Logo + Nombre -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <img src="/img/logosanRafa.png" alt="USTA" style="height:40px; width:auto;" class="rounded">
+
+      </a>
+
+
+      <!-- Botón colapsable móvil -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Contenido navbar -->
+      <div class="collapse navbar-collapse" id="mainNavbar">
+
+        <!-- Ítems del menú -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/equipos">Equipos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/ubicaciones">Ubicaciones</a></li>
+          <li class="nav-item"><a class="nav-link" href="/responsables-custodios">Responsables</a></li>
+          <li class="nav-item"><a class="nav-link" href="/personas-mantenimiento">Personas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/cargos">Cargos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/mantenimientos">Mantenimientos</a></li>
+         <% if (currentUser && currentUser.role==='admin' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/usuarios">Usuarios</a>
+            </li>
+            <% } %>
+              <li class="nav-item"><a class="nav-link " href="/mi-perfil">Mi perfil</a></li>
+        </ul>
+
+        <!-- Usuario + Salir -->
+        <% if (currentUser) { %>
+          <span class="navbar-text me-3 text-muted small">
+            Usuario: <strong>
+              <%= currentUser.username %>
+            </strong> |
+            Rol: <strong>
+              <%= currentUser.role %>
+            </strong>
+          </span>
+
+          <button id="toggleDark" class="btn btn-sm" style="border: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon"
+              viewBox="0 0 16 16">
+              <path
+                d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+            </svg>
+          </button>
+
+          <form method="post" action="/logout" class="d-inline m-0">
+            <button class="btn btn-outline-danger btn-sm">Salir</button>
+          </form>
+          <% } %>
+
+      </div>
+    </div>
+  </nav>
+
+
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-grow-1">
+    <div class="container py-4">
+
+      <!-- Título de la página -->
+      <header class="mb-4 pb-2 border-bottom">
+        <h1 class="h5 m-0">
+          Módulo de gestión de inventario y registro de mantenimientos de equipos informáticos HSRT
+        </h1>
+      </header>
+
+      <!-- FILA 1 -->
+      <div class="row g-3 mb-2">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm" style="
+         background-image: url('/img/360_F_296746476_F0wDElEXSb0Rd1tyDnsCBLVBHGAsJm3O (1).jpg');
+         background-size: cover;
+         background-position: center;
+         background-repeat: no-repeat;
+         color: rgb(1, 35, 41);
+       ">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="rounded-circle bg-success-subtle text-success fw-bold d-inline-flex align-items-center justify-content-center me-2"
+                  style="width:40px;height:40px">🩺</div>
+                <h5 class="m-0">Equipos</h5>
+              </div>
+              <p class="mb-3" style="color: #011d29;">Series, estados e historial técnico.</p>
+              <a href="/equipos" class="btn btn-entrar w-100">Entrar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILA 2 -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm" style="
+        background-image: url('/img/ubi.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: rgb(1, 35, 41);
+    ">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="rounded-circle bg-info-subtle text-info fw-bold d-inline-flex align-items-center justify-content-center me-2"
+                  style="width:40px;height:40px">🏢</div>
+                <h5 class="m-0">Ubicaciones</h5>
+              </div>
+              <p class="mb-3" style="color: #011d29;">Sedes, áreas y espacios físicos.</p>
+              <a href="/ubicaciones" class="btn btn-celeste w-100">Entrar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- FILA 3 -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm" style="
+        background-image: url('/img/respon.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: rgb(1, 35, 41);
+    ">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="rounded-circle bg-info-subtle text-info fw-bold d-inline-flex align-items-center justify-content-center me-2"
+                  style="width:40px;height:40px">👨‍💼</div>
+                <h5 class="m-0">Responsables</h5>
+              </div>
+              <p class="mb-3" style="color: #011d29;">Responsables y custodios de equipos.</p>
+              <a href="/responsables-custodios" class="btn btn-entrar w-100">Entrar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FILA 2 -->
+      <div class="row g-3 mb-2 justify-content-center">
+
+        <!-- CARGOS -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm" style="
+        background-image: url('/img/cargos.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: rgb(1, 35, 41);
+    ">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="rounded-circle bg-info-subtle text-info fw-bold d-inline-flex align-items-center justify-content-center me-2"
+                  style="width:40px;height:40px">📋</div>
+                <h5 class="m-0">Cargos</h5>
+              </div>
+              <p class="mb-3" style="color: #011d29;">Tipos interno/externo para personal técnico.</p>
+              <a href="/cargos" class="btn btn-celeste w-100">Entrar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- PERSONAS DE MANTENIMIENTO -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm" style="
+        background-image: url('/img/personas.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: rgb(1, 35, 41);
+    ">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="rounded-circle bg-info-subtle text-info fw-bold d-inline-flex align-items-center justify-content-center me-2"
+                  style="width:40px;height:40px">👨‍🔧</div>
+                <h5 class="m-0">Personas</h5>
+              </div>
+              <p class="mb-3" style="color: #011d29;">Personal interno y externo a cargo del mantenimiento de los
+                equipos.</p>
+              <a href="/personas-mantenimiento" class="btn btn-entrar w-100">Entrar</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- MANTENIMIENTOS -->
+        <div class="col-12 col-sm-6 col-lg-4">
+          <div class="card h-100 border-0 shadow-sm" style="
+        background-image: url('/img/matenimientos.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: rgb(1, 35, 41);
+    ">
+            <div class="card-body">
+              <div class="d-flex align-items-center mb-2">
+                <div
+                  class="rounded-circle bg-info-subtle text-info fw-bold d-inline-flex align-items-center justify-content-center me-2"
+                  style="width:40px;height:40px">🛠️</div>
+                <h5 class="m-0">Mantenimientos</h5>
+              </div>
+              <p class="mb-3" style="color: #011d29;">Mantenimiento preventivo, correctivo y control de alertas.</p>
+              <a href="/mantenimientos" class="btn btn-celeste w-100">Entrar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="card h-100 border-0 shadow-sm" style="
+        background-image: url('/img/user.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        color: rgb(1, 35, 41);
+    ">
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <div
+              class="rounded-circle bg-info-subtle text-info fw-bold d-inline-flex align-items-center justify-content-center me-2"
+              style="width:40px;height:40px">👤</div>
+            <h5 class="m-0">Mi perfil</h5>
+          </div>
+          <p class="mb-3" style="color: #011d29;">Revisa tus datos y modifícalos.</p>
+          <a href="/mi-perfil" class="btn btn-celeste w-100">Entrar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER " FIJO" ABAJO -->
+  <footer class="mt-auto py-2 border-top bg-light text-center text-body-secondary small">
+    © <%= new Date().getFullYear() %> USTA – Módulo de gestión de inventario y registro de mantenimientos
+      de equipos
+      informáticos HSRT
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const toggle = document.getElementById("toggleDark");
+    const main = document.querySelector("main");
+
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      main.classList.toggle("dark-mode-main");
+
+      toggle.textContent =
+        document.body.classList.contains("dark-mode")
+          ? "☀️"
+          : "🌙";
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="es" data-bs-theme="light">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Mantenimientos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" type="image/png" href="/img/iconosanrafa.png" /> <!-- icono -->
+
+  <style>
+    /* Tamaño base un poco más pequeño */
+
+    body {
+      padding: 0;
+      font-size: 0.9rem;
+    }
+
+    .page-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    header.page-header {
+      margin-bottom: 1rem;
+    }
+
+    header.page-header h1 {
+      font-size: 1.15rem;
+    }
+
+    header.page-header p {
+      font-size: 0.82rem;
+    }
+
+    .btn-compact {
+      padding: 0.3rem 0.7rem;
+      font-size: 0.8rem;
+      line-height: 1.2;
+    }
+
+    .btn-filter {
+      padding: 0.4rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .toolbar .form-label {
+      font-size: 0.8rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .toolbar .form-control,
+    .toolbar .form-select {
+      min-width: 160px;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.85rem;
+      height: calc(1.5em + 0.5rem + 2px);
+    }
+
+    .table thead th {
+      white-space: nowrap;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      background-color: #f8f9fa;
+    }
+
+    .table {
+      --bs-table-cell-padding-y: 0.4rem;
+      --bs-table-cell-padding-x: 0.5rem;
+    }
+
+    .table td {
+      vertical-align: middle;
+      font-size: 0.85rem;
+    }
+
+    .table-card {
+      border-radius: 0.375rem;
+      box-shadow: 0 0.1rem 0.35rem rgba(15, 23, 42, 0.05);
+      border: 1px solid #dee2e6;
+      overflow: hidden;
+    }
+
+    .table tbody tr:hover {
+      background-color: #f9fafb;
+    }
+
+    .col-acciones {
+      text-align: center;
+      white-space: nowrap;
+      width: 180px;
+    }
+
+    .col-acciones .btn {
+      margin-bottom: 0.1rem;
+    }
+
+    .preview-img {
+      max-height: 100px;
+      border-radius: 8px;
+      display: block;
+      margin-top: 4px;
+    }
+
+    .toast-container {
+      z-index: 1080;
+    }
+
+    /* Fondo Home */
+    body {
+      background-color: #E8F4FF !important;
+    }
+
+    /* Navbar Home */
+    .navbar {
+      background-color: #ecf6ff !important;
+      border-bottom: 1px solid #CFE6FF !important;
+    }
+
+    .navbar .nav-link {
+      color: #0A3D62 !important;
+    }
+
+    .navbar .nav-link:hover {
+      color: #562585 !important;
+    }
+
+    /* Footer Home */
+    footer {
+      background-color: #D8ECFF !important;
+    }
+
+    /* Cards Home */
+    .table-card {
+      background-color: #FFFFFF !important;
+      border: 1px solid #CFE6FF !important;
+      box-shadow: 0 0.1rem 0.35rem rgba(15, 23, 42, 0.08) !important;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .table-card:hover {
+      transform: scale(1.03);
+      border: 2px solid #a3eef3 !important;
+      box-shadow: 30px 10px 20px rgba(59, 145, 148, 0.5) !important;
+    }
+
+    /* Botones violetas Home */
+    .btn-primary,
+    .btn-compact,
+    .btn-entrar {
+      background-color: #562585 !important;
+      border-color: #562585 !important;
+      color: #fff !important;
+    }
+
+    /* Botones celestes Home */
+    .btn-celeste,
+    .btn-info,
+    .btn-filter {
+      background-color: #5dc2bd !important;
+      border-color: #5dc2bd !important;
+      color: #fff !important;
+    }
+
+    /* Encabezado tabla Home */
+    .table thead th {
+      background-color: #ecf6ff !important;
+      color: #0A3D62 !important;
+    }
+
+    /* Hover tabla Home */
+    .table tbody tr:hover {
+      background-color: #f0f8ff !important;
+    }
+
+    /* Inputs Home */
+    .form-control,
+    .form-select {
+      border: 1px solid #CFE6FF !important;
+      background-color: #ffffff !important;
+    }
+
+    /* Textos */
+    header.page-header h1,
+    header.page-header p {
+      color: #0A3D62 !important;
+    }
+
+    body.dark-mode {
+      background-color: #1e1e1e !important;
+      color: #e6e6e6 !important;
+    }
+
+    main.dark-mode-main {
+      background-color: #2a2a2a !important;
+      color: #e6e6e6 !important;
+
+      h1 {
+        color: #f1f1f1 !important;
+      }
+
+      p {
+        color: #f1f1f1 !important;
+      }
+    }
+
+    /* letras */
+    .dark-mode .card {
+      background-color: #2a2a2a !important;
+      color: #ffffff !important;
+      border: 1px solid #444 !important;
+    }
+
+    .dark-mode .navbar,
+    xxxxxx .dark-mode footer {
+      background-color: #2a2a2a !important;
+      color: #e6e6e6 !important;
+
+      h1 {
+        color: #f1f1f1 !important;
+      }
+
+      p {
+        color: #f1f1f1 !important;
+      }
+    }
+
+    .dark-mode a,
+    .dark-mode .nav-link {
+      color: #ffffff !important;
+    }
+
+    .dark-mode footer {
+      background-color: #2a2a2a !important;
+      color: #e6e6e6 !important;
+    }
+  </style>
+</head>
+
+<body class="bg-white d-flex flex-column min-vh-100">
+
+  <!-- NAVBAR SUPERIOR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container">
+
+      <!-- Logo + Nombre -->
+      <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+        <img src="/img/logosanRafa.png" alt="USTA" style="height:40px; width:auto;" class="rounded">
+      </a>
+
+      <!-- Botón colapsable móvil -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Contenido navbar -->
+      <div class="collapse navbar-collapse" id="mainNavbar">
+
+        <!-- Ítems del menú -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/equipos">Equipos</a></li>
+          <li class="nav-item"><a class="nav-link" href="/ubicaciones">Ubicaciones</a></li>
+          <li class="nav-item"><a class="nav-link" href="/responsables-custodios">Responsables</a></li>
+          <li class="nav-item"><a class="nav-link" href="/personas-mantenimiento">Personas</a></li>
+          <li class="nav-item"><a class="nav-link" href="/cargos">Cargos</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="/mantenimientos">Mantenimientos</a>
+          </li>
+
+          <!---wendy ------------------------------------->
+          <% if (currentUser && currentUser.role==='admin' ) { %>
+            <li class="nav-item">
+              <a class="nav-link" href="/usuarios">Usuarios</a>
+            </li>
+            <% } %>
+              <!--------------------------------------------------------------->
+              <li class="nav-item"><a class="nav-link " href="/mi-perfil">Mi perfil</a></li>
+        </ul>
+
+        <!-- Usuario + Salir -->
+        <% if (currentUser) { %>
+          <span class="navbar-text me-3 text-muted small">
+            Usuario: <strong>
+              <%= currentUser.username %>
+            </strong> |
+            Rol: <strong>
+              <%= currentUser.role %>
+            </strong>
+          </span>
+
+          <button id="toggleDark" class="btn btn-sm" style="border: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-moon"
+              viewBox="0 0 16 16">
+              <path
+                d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278M4.858 1.311A7.27 7.27 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.32 7.32 0 0 0 5.205-2.162q-.506.063-1.029.063c-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286" />
+            </svg>
+          </button>
+
+          <form method="post" action="/logout" class="d-inline m-0">
+            <button class="btn btn-outline-danger btn-sm">Salir</button>
+          </form>
+          <% } %>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="flex-grow-1">
+    <div class="container-fluid py-3 px-4">
+      <div class="page-wrapper">
+
+        <!-- Header local (título + descripción + botón nuevo) -->
+        <header class="page-header d-flex justify-content-between align-items-center">
+          <div>
+            <h1 class="h4 m-0">Mantenimientos</h1>
+            <p class="text-muted mb-0">
+              Registro y seguimiento de mantenimientos preventivos y correctivos, con responsables, fechas y adjuntos.
+            </p>
+          </div>
+
+          <div>
+            <a href="/reportes/mantenimientos.xlsx" class="btn btn-outline-success btn-compact">
+              <i class="bi bi-file-earmark-excel"></i> Exportar Excel
+            </a>
+            <!------------wendy -------------------->
+            <% if (currentUser && currentUser.role==='admin' ) { %>
+              <button id="btnNuevo" class="btn btn-primary btn-compact">➕ Nuevo mantenimiento</button>
+              <% } %>
+                <!---------------------------------------------------------->
+          </div>
+        </header>
+
+        <!-- Filtros en card -->
+        <div class="card mb-3">
+          <div class="card-body toolbar">
+            <div class="row g-2 align-items-end">
+
+              <div class="col-sm-6 col-lg-3">
+                <label class="form-label">Descripción</label>
+                <input id="q" class="form-control" placeholder="Buscar en descripción...">
+              </div>
+
+              <div class="col-sm-6 col-lg-3">
+                <label class="form-label">Código inventario</label>
+                <input id="fCodigo" class="form-control" placeholder="EQ-0001" list="dl_fcodigos">
+                <datalist id="dl_fcodigos"></datalist>
+              </div>
+
+              <div class="col-sm-6 col-lg-2">
+                <label class="form-label">Tipo</label>
+                <select id="fTipo" class="form-select">
+                  <option value="">Tipo...</option>
+                </select>
+              </div>
+
+              <div class="col-sm-6 col-lg-2">
+                <label class="form-label">Prioridad</label>
+                <select id="fPri" class="form-select">
+                  <option value="">Prioridad...</option>
+                </select>
+              </div>
+
+              <div class="col-sm-6 col-lg-2">
+                <label class="form-label">Resultado</label>
+                <select id="fRes" class="form-select">
+                  <option value="">Resultado...</option>
+                </select>
+              </div>
+
+              <div class="col-sm-6 col-lg-3">
+                <label class="form-label">Persona de mantenimiento</label>
+                <input id="fPersona" class="form-control" placeholder="ID / Apellidos / Nombres"
+                  list="dl_personas_filter">
+                <datalist id="dl_personas_filter"></datalist>
+              </div>
+
+              <!-- Botones Filtrar / Limpiar -->
+              <div class="col-sm-6 col-lg-3 ms-auto d-flex justify-content-end gap-2 mt-2 mt-lg-0">
+                <button id="btnLimpiar" class="btn btn-outline-secondary btn-filter">Limpiar</button>
+                <button id="btnFiltrar" class="btn btn-dark btn-filter">Filtrar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabla en card -->
+        <div class="card table-card">
+          <div class="card-body p-0">
+            <div class="table-responsive">
+              <table class="table table-bordered table-striped table-hover align-middle mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th>#</th>
+                    <th>Equipo</th>
+                    <th>Tipo</th>
+                    <th>Prioridad</th>
+                    <th>Programada</th>
+                    <th>Ejecución</th>
+                    <th>Próx. venc.</th>
+                    <th>Resultado</th>
+                    <th>Responsable</th>
+                    <th>Adjunto</th>
+                    <th class="col-acciones">Acciones</th>
+                  </tr>
+                </thead>
+                <!---------------Wendy  ---------------------------->
+                <tbody id="tbody">
+                  <% mantenimientos.forEach(m=> { %>
+                    <tr>
+                      <td>
+                        <%= m.id %>
+                      </td>
+                      <td>
+                        <%= m.Equipo ? (m.Equipo.codigo_inventario || ('#'+m.equipoId)) : ('#'+m.equipoId) %>
+                      </td>
+                      <td>
+                        <%= m.tipo %>
+                      </td>
+                      <td>
+                        <%= m.prioridad %>
+                      </td>
+                      <td>
+                        <%= m.fecha_programada || '' %>
+                      </td>
+                      <td>
+                        <%= m.fecha_ejecucion || '' %>
+                      </td>
+                      <td>
+                        <%= m.proximo_vencimiento || '' %>
+                      </td>
+                      <td>
+                        <%= m.resultado || '' %>
+                      </td>
+                      <td>
+                        <%= m.PersonaMantenimiento ? (m.PersonaMantenimiento.identificacion + ' — ' +
+                          m.PersonaMantenimiento.apellidos + ', ' + m.PersonaMantenimiento.nombres) : '' %>
+                      </td>
+                      <td>
+                        <% if (m.adjunto_url) { %>
+                          <% if (m.adjunto_url.endsWith('.pdf')) { %>
+                            <a href="<%= m.adjunto_url %>" target="_blank" class="btn btn-sm btn-outline-dark">
+                              PDF
+                            </a>
+                            <% } else { %>
+                              <a href="<%= m.adjunto_url %>" target="_blank">
+                                <img src="<%= m.adjunto_url %>" alt="Adjunto" class="preview-img">
+                              </a>
+                              <% } %>
+                                <% } %>
+                      </td>
+                      <td class="col-acciones">
+                        <button class="btn btn-sm btn-warning btn-compact me-1" data-act="edit" data-id="<%= m.id %>">
+                          Editar
+                        </button>
+                        <button class="btn btn-sm btn-danger btn-compact" data-act="del" data-id="<%= m.id %>">
+                          Eliminar
+                        </button>
+                      </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!---------------------------------------------------------------------------->
+
+        <!-- Modal Crear/Editar -->
+        <div class="modal fade" id="modal" tabindex="-1" aria-hidden="true">
+          <div class="modal-dialog modal-lg">
+            <form class="modal-content" id="form">
+              <div class="modal-header">
+                <h5 class="modal-title" id="title">Nuevo mantenimiento</h5>
+                <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+              </div>
+
+              <div class="modal-body">
+                <input type="hidden" id="id">
+                <div class="row g-3">
+
+                  <div class="col-md-4">
+                    <label class="form-label">Código inventario</label>
+                    <input id="codigo_inventario" list="dl_codigos" class="form-control" placeholder="EQ-0001" required>
+                    <datalist id="dl_codigos"></datalist>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="form-label">Tipo</label>
+                    <select id="tipo" class="form-select" required></select>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="form-label">Prioridad</label>
+                    <select id="prioridad" class="form-select" required></select>
+                  </div>
+
+                  <div class="col-md-3">
+                    <label class="form-label">Resultado</label>
+                    <select id="resultado" class="form-select">
+                      <option value="">(pendiente)</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label">Fecha programada</label>
+                    <input id="fecha_programada" type="datetime-local" class="form-control">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label">Fecha ejecución</label>
+                    <input id="fecha_ejecucion" type="datetime-local" class="form-control">
+                  </div>
+
+                  <div class="col-md-4">
+                    <label class="form-label">Próx. vencimiento</label>
+                    <input id="proximo_vencimiento" type="date" class="form-control">
+                  </div>
+
+                  <!-- Responsable -->
+                  <div class="col-md-6">
+                    <label class="form-label">Responsable (persona de mantenimiento)</label>
+                    <input id="persona_autocomplete" class="form-control"
+                      placeholder="Buscar: identificación, apellidos o nombres" list="dl_personas_modal" required>
+                    <datalist id="dl_personas_modal"></datalist>
+                    <div class="form-text">Escribe y selecciona una persona existente.</div>
+                  </div>
+
+                  <!-- Subida de archivo -->
+                  <div class="col-md-6">
+                    <label class="form-label">Adjunto (PDF / JPG / PNG máx. 5MB)</label>
+                    <input id="adjunto_file" type="file" class="form-control" accept=".pdf,image/png,image/jpeg">
+                    <div class="form-text">
+                      Al subir el archivo se genera automáticamente el enlace.
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label">Adjunto URL</label>
+                    <input id="adjunto_url" class="form-control" placeholder="http(s)://..." readonly>
+                    <a id="adjunto_preview" href="#" target="_blank" style="display:none">Ver adjunto</a>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Descripción</label>
+                    <textarea id="descripcion" class="form-control" rows="3"></textarea>
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label">Observaciones</label>
+                    <textarea id="observaciones" class="form-control" rows="3"></textarea>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button class="btn btn-secondary btn-compact" data-bs-dismiss="modal" type="button">Cancelar</button>
+                <button class="btn btn-primary btn-compact" type="submit">Guardar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toastContainer"></div>
+
+      </div><!-- /.page-wrapper -->
+    </div><!-- /.container-fluid -->
+  </main>
+
+  <!-- FOOTER "FIJO" ABAJO -->
+  <footer class="mt-auto py-2 border-top bg-light text-center text-body-secondary small">
+    © <%= new Date().getFullYear() %> USTA – Módulo de gestión de inventario y registro de mantenimientos de equipos
+      informáticos HSRT
+  </footer>
+  <!---------Wendy-------------------------------------->
+  <script>
+    window.CURRENT_USER_ROLE = "<%- currentUser ? currentUser.role : '' %>";
+  </script>
+  <!---------------------------------------------------------------------->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/mantenimientos.js"></script>
+
+  <script>
+    const toggle = document.getElementById("toggleDark");
+    const main = document.querySelector("main");
+
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      main.classList.toggle("dark-mode-main");
+
+      toggle.textContent =
+        document.body.classList.contains("dark-mode")
+          ? "☀️"
+          : "🌙";
+    });
+  </script>
+
+</body>
+
+</html>
